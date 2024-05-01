@@ -1,0 +1,83 @@
+<div #background class="background">
+  <div class="row">
+    <div #topPad class="col-sm-12"></div>
+    <div class="col-sm-4"></div>
+    <div #loginDialog class="col-sm-4">
+      <div class="card">
+        <div class="card-header text-white bg-info">
+          <h1 class="card-title">Login</h1>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-12 input-group mb-2">
+              <label for="email" class="input-group-text col-sm-4">Email address</label>
+              <input [(ngModel)]="readerUser.email" id="email" class="form-control col-sm-8" name="email" type="text" />
+            </div>
+            <div class="col-sm-12 input-group mb-2">
+              <label for="password" class="input-group-text  col-sm-4">Password</label>
+              <input [(ngModel)]="readerUser.password" id="password" class="form-control col-sm-7" name="password" type="{{showPassword ? 'text' : 'password'}}" />
+              <span class="input-group-text  col-sm-1"><span (click)="toggleShowPassword()" class="{{showPasswordIcon}} fake-link"></span></span>
+            </div>
+          </div>
+          <div class="row pt-2">
+            <div class="col-sm-6">
+              <button (click)="login()" class="btn btn-outline-primary" type="button">Login</button>
+            </div>
+            <div class="col-sm-6 text-end">
+              <button (click)="toRegisterView()" class="btn btn-outline-danger" type="button">Register</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div #registerDialog class="col-sm-4 d-none">
+      <div class="card">
+        <div class="card-header text-white bg-info">
+          <h1 class="card-title">Register</h1>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-12 input-group mb-2">
+              <label for="name" class="input-group-text col-sm-4">Name</label>
+              <input [(ngModel)]="readerUser.name" id="name" class="form-control col-sm-8" name="name" type="text" />
+            </div>
+            <div class="col-sm-12 input-group mb-2">
+              <label for="registerEmail" class="input-group-text col-sm-4">Email address</label>
+              <input [(ngModel)]="readerUser.email" id="registerEmail" class="form-control col-sm-8" name="registerEmail" type="text" />
+            </div>
+            <div class="col-sm-12 input-group mb-2">
+              <label for="registerPpassword" class="input-group-text  col-sm-4">Password</label>
+              <input [(ngModel)]="readerUser.password" id="registerPpassword" class="form-control  col-sm-7" name="registerPpassword" type="{{showPassword ? 'text' : 'password'}}" />
+              <span class="input-group-text  col-sm-1"><span (click)="toggleShowPassword()" class="{{showPasswordIcon}} fake-link"></span></span>
+            </div>
+          </div>
+          <div class="row pt-2">
+            <div class="col-sm-6">
+              <button (click)="register()" class="btn btn-outline-primary" type="button">Register</button>
+            </div>
+            <div class="col-sm-6 text-end">
+              <button (click)="toLoginView()" class="btn btn-outline-danger" type="button">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4 text-center">
+      <div *ngIf="transientMessage.length > 0" class="card fs-4 {{transientColor}}">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-12">
+              <p>{{transientMessage}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+</div>
+

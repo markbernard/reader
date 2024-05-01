@@ -1,0 +1,93 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  overflow: hidden;
+}
+a {
+  text-decoration: none;
+}
+.background {
+  background-color: #ddd;
+}
+.reader-banner {
+  background-color: white;
+  border-radius: 10px;
+}
+.reader-subscription-list {
+  background-color: white;
+  border-radius: 10px;
+}
+.entries-controls {
+  background-color: white;
+  border-radius: 10px;
+  padding-bottom: 5px;
+}
+.reader-entry {
+  background-color: white;
+  border-radius: 10px;
+  border-left: 5px solid white;
+}
+.reader-content {
+  background-color: #ddd;
+  border-radius: 10px;
+}
+.end-reader-content {
+  background-color: white;
+  border-radius: 10px;
+}
+.fake-link {
+  cursor: pointer;
+  text-decoration: none;
+}
+.subscriptionList {
+  padding: 0px;
+  margin: 0px;
+  list-style: none;
+  list-style-type: none;
+  font-size: 1.2em;
+  color: #69e;
+  cursor: pointer;
+}
+.subscriptionList > li {
+  border-left: 5px solid white;
+  padding-left: 3px;
+}
+.subscriptionList > li:hover {
+  background-color: honeydew;
+}
+.selected,.unread {
+  border-left: 5px solid #69e !important;
+}
+.read {
+  border-left: 1px solid #69e !important;
+}
+.title-link {
+  color: black;
+}
+dl.site-links {
+  display: grid;
+  gap: 0px 8px;
+  grid-template-columns: max-content;
+}
+.site-links > dt {
+  font-weight: bold;
+}
+.site-links > dd {
+  margin: 0;
+  grid-column-start: 2;
+  overflow: hidden;
+}
+.site-links > dd > a {
+  text-decoration: none;
+  color: white;
+  background-color: #69e;
+  border-color: #69e;
+  border-radius: 8px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.scroll {
+  overflow-y: scroll;
+}
+.nopad {
+  padding-right: 0px;
+}

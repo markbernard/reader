@@ -1,0 +1,98 @@
+<div class="row">
+  <div #banner class="col-sm-12 reader-banner border border-primary border-1 mb-1">
+    <div class="row">
+    <div class="col-sm-9 text-center">
+      <h1>Free Reader</h1>
+    </div>
+    <div class="col-sm-3 text-end">
+      <p class="h3">{{readerUser.name}}</p>
+      <p><a class="fake-link text-primary" (click)="logout()">Logout</a></p>
+    </div>
+  </div>
+  </div>
+  <div #subscriptions class="col-sm-3 reader-subscription-list border border-primary border-1">
+    <div class="col-sm-12 text-end">
+      <button (click)="addSubscription()" class="btn btn-outline-primary mt-1" type="button"><span class="fas fa-plus"></span> Subscription</button>
+    </div>
+    <div *ngIf="subscriptionList.length > 0" class="col-sm-12">
+      <ul class="subscriptionList">
+        <li *ngFor="let subscription of subscriptionList" (click)="select($event, subscription)"><img src="{{subscription.favicon.length > 0 ? subscription.favicon : 'favicon.ico'}}" width="24" height="24" /> {{subscription.title}} <span *ngIf="subscription.count > 0" class="badge rounded-pill bg-secondary">{{subscription.count}}</span></li>
+      </ul>
+    </div>
+  </div>
+  <div #content class="col-sm-9 reader-content border border-primary border-1">
+    <div #controls *ngIf="selectedSubscription != null" class="row entries-controls mb-2 border border-primary border-1">
+      <div class="col-sm-8">
+        <h3>{{selectedSubscription.title}}</h3>
+      </div>
+      <div class="col-sm-4">
+        <dl class="site-links">
+          <dt>Site:</dt>
+          <dd><a href="{{selectedSubscription.link}}" target="_blank">{{fixLinkText(selectedSubscription.link)}}</a></dd>
+          <dt>Feed:</dt>
+          <dd><a href="{{selectedSubscription.feed}}" target="_blank">{{fixLinkText(selectedSubscription.feed)}}</a></dd>
+        </dl>
+      </div>
+      <div class="col-sm-6">
+        <button (click)="markAllRead()" class="btn btn-outline-dark" type="button">Mark all as Read</button>
+      </div>
+      <div class="col-sm-6 text-end">
+        <button (click)="next()" class="btn btn-outline-dark ms-1" type="button"><span class="fas fa-chevron-down" title="Next article"></span></button>
+        <button (click)="previous()" class="btn btn-outline-dark ms-1" type="button"><span class="fas fa-chevron-up" title="Previous article"></span></button>
+        <button *ngIf="sortAscending" (click)="toggleSort()" class="btn btn-outline-dark ms-1" type="button"><span class="fas fa-arrow-down" title="Newest first"></span></button>
+        <button *ngIf="!sortAscending" (click)="toggleSort()" class="btn btn-outline-dark ms-1" type="button"><span class="fas fa-arrow-up" title="Oldest first"></span></button>
+        <button *ngIf="newPosts" (click)="toggleUnread()" class="btn btn-outline-dark ms-1" type="button">Show all posts</button>
+        <button *ngIf="!newPosts" (click)="toggleUnread()" class="btn btn-outline-dark ms-1" type="button">Show unread posts</button>
+      </div>
+    </div>
+    <div #entries class="row scroll" (scroll)="checkScroll()">
+      <div *ngIf="userSubscriptionEntries.length > 0" class="row pe-0">
+        <div *ngFor="let userSubscriptionEntry of userSubscriptionEntries; index as index" (click)="markRead($event, userSubscriptionEntry)" class="col-sm-12 reader-entry mb-2 border border-primary border-1{{userSubscriptionEntry.read?' read':' unread'}}" attr.data-position="{{index}}">
+          <div class="row{{userSubscriptionEntry.read?' ps-1':''}}">
+            <div class="col-sm-9 pb-3">
+              <h4><a href="{{userSubscriptionEntry.subscriptionEntry.link}}" class="title-link" target="_blank">{{userSubscriptionEntry.subscriptionEntry.title}}</a></h4>
+            </div>
+            <div class="col-sm-3 pb-3 text-end">
+              <time>{{formatDate(userSubscriptionEntry.subscriptionEntry.pubDate)}}</time>
+            </div>
+            <div *ngIf="userSubscriptionEntry.subscriptionEntry.author.length > 0" class="col-sm-12">
+              <p>by <strong>{{userSubscriptionEntry.subscriptionEntry.author}}</strong></p>
+            </div>
+            <div class="col-sm-12" [innerHTML]="userSubscriptionEntry.subscriptionEntry.content | safeHtml"></div>
+            <div class="col-sm-12 h5"><a href="{{userSubscriptionEntry.subscriptionEntry.comments}}" target="_blank">Comments</a></div>
+            <div class="col-sm-12 pb-3 pt-2"><button *ngIf="!userSubscriptionEntry.read" (click)="markRead($event, userSubscriptionEntry)" class="btn btn-outline-primary" type="button">Mark as read</button><button *ngIf="userSubscriptionEntry.read" (click)="markUnread($event, userSubscriptionEntry)" class="btn btn-outline-primary" type="button">Mark as unread</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6 h4 ps-5 pe-5 pt-4 pb-3 mb-5 mt-4 text-center end-reader-content">
+        <p>No more posts.</p>
+      </div>
+      <div class="col-sm-3"></div>
+    </div>
+  </div>
+</div>
+
+<dialog #addSubscriptionDialog class="w-50">
+  <div class="card">
+    <div class="card-header text-white bg-primary">
+      <h1 class="card-title">Add Subscription</h1>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-12 input-group mb-2">
+          <label for="feedurl" class="input-group-text col-sm-2">Feed URL</label>
+          <input [(ngModel)]="feedUrl" id="feedurl" name="feedurl" class="form-control col-sm-10" type="text" />
+        </div>
+      </div>
+      <div class="row pt-2">
+        <div class="col-sm-6">
+          <button (click)="subscribe()" class="btn btn-outline-primary" type="button">Subscribe</button>
+        </div>
+        <div class="col-sm-6 text-end">
+          <button (click)="cancel()" class="btn btn-outline-danger" type="button">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
