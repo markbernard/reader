@@ -1,4 +1,6 @@
-# Reader
+# Free Reader
+
+Simple RSS web client used in conjunction with [Reader Server](https://github.com/markbernard/reader-server) back end server.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.3.
 
