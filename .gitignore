@@ -36,6 +36,7 @@ yarn-error.log
 /libpeerconnection.log
 testem.log
 /typings
+reader-1.0.tar.gz
 
 # System files
 .DS_Store

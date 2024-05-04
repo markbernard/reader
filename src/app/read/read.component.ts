@@ -93,8 +93,8 @@ export class ReadComponent implements OnInit, AfterViewInit {
     contentDiv.style.maxHeight = height + "px";
     contentDiv.style.height = height + "px";
     if (margin > 0) {
-      contentDiv.style.width = (width - margin) + "px";
-      contentDiv.style.maxWidth = (width - margin) + "px";
+      contentDiv.style.width = (width - (margin) * 2) + "px";
+      contentDiv.style.maxWidth = (width - (margin) * 2) + "px";
       contentDiv.style.marginLeft = margin + "px";
     }
 
