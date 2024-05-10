@@ -11,12 +11,12 @@
   </div>
   </div>
   <div #subscriptions class="col-sm-3 reader-subscription-list border border-primary border-1">
-    <div class="col-sm-12 text-end">
+    <div #subscriptionButton class="col-sm-12 text-end">
       <button (click)="addSubscription()" class="btn btn-outline-primary mt-1" type="button"><span class="fas fa-plus"></span> Subscription</button>
     </div>
-    <div *ngIf="subscriptionList.length > 0" class="col-sm-12">
+    <div #subscriptionArray *ngIf="subscriptionList.length > 0" class="col-sm-12 scroll">
       <ul class="subscriptionList">
-        <li *ngFor="let subscription of subscriptionList" (click)="select($event, subscription)"><img src="{{subscription.favicon.length > 0 ? subscription.favicon : 'favicon.ico'}}" width="24" height="24" /> {{subscription.title}} <span *ngIf="subscription.count > 0" class="badge rounded-pill bg-secondary">{{subscription.count}}</span></li>
+        <li *ngFor="let subscription of subscriptionList" (click)="select($event, subscription)"><img src="{{subscription.favicon.length > 0 ? subscription.favicon : 'favicon.ico'}}" width="24" height="24" /><span class="list-item" title="{{subscription.title}}">&nbsp;{{subscription.title}}&nbsp;</span><span *ngIf="subscription.count > 0" class="badge rounded-pill bg-secondary">{{subscription.count}}</span></li>
       </ul>
     </div>
   </div>

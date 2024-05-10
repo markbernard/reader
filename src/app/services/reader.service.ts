@@ -122,7 +122,7 @@ export class ReaderService {
     this.http.post("/readerws/subscribe", body, options).subscribe({
       next: (result: any) => {
         const clientResult: ClientResult = JSON.parse(result, (key: string, value: any) => {
-          if (key == "data") {
+          if (key == "data" && value != null) {
             const subscription: Subscription = new Subscription(value.id, value.title, value.feed, value.link, value.description, value.favicon, value.faviconVerified);
 
             return subscription;

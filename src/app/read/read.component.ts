@@ -15,6 +15,8 @@ import { UserSubscriptionEntry } from '../types/user-subscription-entry';
 export class ReadComponent implements OnInit, AfterViewInit {
   @ViewChild("banner") bannerElement?: ElementRef;
   @ViewChild("subscriptions") subscriptionsElement?: ElementRef;
+  @ViewChild("subscriptionButton") subscriptionButtonElement?: ElementRef;
+  @ViewChild("subscriptionArray") subscriptionArrayElement?: ElementRef;
   @ViewChild("content") contentElement?: ElementRef;
   @ViewChild("addSubscriptionDialog") addSubscriptionDialogElement?: ElementRef;
   @ViewChild("controls") controlsElement?: ElementRef;
@@ -49,6 +51,9 @@ export class ReadComponent implements OnInit, AfterViewInit {
               next: (result: ClientResult) => {
                 if (result.success) {
                   this.subscriptionList = result.data;
+                  setTimeout(() => {
+                    this.setSizes();
+                  }, 1);
                   this.readerService.getCounts().subscribe({
                     next: (result: ClientResult) => {
                       result.data.forEach((value: number, key: string) => {
@@ -82,6 +87,8 @@ export class ReadComponent implements OnInit, AfterViewInit {
     const bannerDiv: HTMLDivElement = this.bannerElement?.nativeElement;
     const subscriptionsDiv: HTMLDivElement = this.subscriptionsElement?.nativeElement;
     const contentDiv: HTMLDivElement = this.contentElement?.nativeElement;
+    const subscriptionArrayDiv: HTMLDivElement = this.subscriptionArrayElement?.nativeElement;
+    const subscriptionButtonDiv: HTMLDivElement = this.subscriptionButtonElement?.nativeElement
 
     let margin: number = (subscriptionsDiv.offsetTop - bannerDiv.offsetTop) - bannerDiv.offsetHeight;
     let height: number = window.innerHeight;
@@ -92,6 +99,11 @@ export class ReadComponent implements OnInit, AfterViewInit {
     subscriptionsDiv.style.height = height + "px";
     contentDiv.style.maxHeight = height + "px";
     contentDiv.style.height = height + "px";
+    height -= subscriptionButtonDiv.offsetHeight;
+    if (subscriptionArrayDiv) {
+      subscriptionArrayDiv.style.maxHeight = height + "px";
+      subscriptionArrayDiv.style.height = height + "px";
+    }
     if (margin > 0) {
       contentDiv.style.width = (width - (margin) * 2) + "px";
       contentDiv.style.maxWidth = (width - (margin) * 2) + "px";
@@ -136,6 +148,8 @@ export class ReadComponent implements OnInit, AfterViewInit {
                 this.feedUrl = "";
                 this.subscriptionList.push(result.data);
               }
+            } else {
+              alert(result.message);
             }
           }
         });
