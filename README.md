@@ -14,6 +14,10 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
+Run the build.sh script to build the Angular application then package it into a tarball. The root folder in the tarball is **reader**.
+
+You can run the deploy.sh script to build and copy the output to **/var/www/html/reader**.
+
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests
