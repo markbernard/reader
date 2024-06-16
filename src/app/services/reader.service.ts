@@ -7,6 +7,7 @@ import { Subscription } from '../types/subscription';
 import { CookieService } from './cookie.service';
 import { SubscriptionEntry } from '../types/subscription-entry';
 import { UserSubscriptionEntry } from '../types/user-subscription-entry';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

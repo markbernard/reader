@@ -99,11 +99,6 @@ export class ReadComponent implements OnInit, AfterViewInit {
     subscriptionsDiv.style.height = height + "px";
     contentDiv.style.maxHeight = height + "px";
     contentDiv.style.height = height + "px";
-    height -= subscriptionButtonDiv.offsetHeight;
-    if (subscriptionArrayDiv) {
-      subscriptionArrayDiv.style.maxHeight = height + "px";
-      subscriptionArrayDiv.style.height = height + "px";
-    }
     if (margin > 0) {
       contentDiv.style.width = (width - (margin) * 2) + "px";
       contentDiv.style.maxWidth = (width - (margin) * 2) + "px";
@@ -118,6 +113,11 @@ export class ReadComponent implements OnInit, AfterViewInit {
       height -= 11;
       entriesDiv.style.maxHeight = height + "px";
       entriesDiv.style.height = height + "px";
+    }
+    height -= subscriptionButtonDiv.offsetHeight;
+    if (subscriptionArrayDiv) {
+      subscriptionArrayDiv.style.maxHeight = height + "px";
+      subscriptionArrayDiv.style.height = height + "px";
     }
   }
 
